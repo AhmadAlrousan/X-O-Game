@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:xo_game/game_logic.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,7 +9,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
   String activePlaer = 'X';
   bool gameOver = false;
   int turn = 0;
@@ -19,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   Game game = Game();
   bool isSwitched = false;
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
@@ -39,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ...firstBlock(),
-                        SizedBox(height: 20,),
+                        const SizedBox(height: 20,),
                         ...lastBlock()],
                     ),
                   ),
@@ -52,7 +50,7 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> firstBlock() {
     return [
-      SizedBox(height: 20,),
+      const SizedBox(height: 20,),
       SwitchListTile.adaptive(
           title: const Text(
             "Turn on / oof tow player",
@@ -65,7 +63,7 @@ class _HomePageState extends State<HomePage> {
               isSwitched = newValue;
             });
           }),
-      SizedBox(height: 30,),
+      const SizedBox(height: 30,),
       Text(
         "It's $activePlaer turn".toUpperCase(),
         style: const TextStyle(color: Colors.red, fontSize: 40),
@@ -81,7 +79,7 @@ class _HomePageState extends State<HomePage> {
         style: const TextStyle(color: Colors.tealAccent, fontSize: 30),
         textAlign: TextAlign.center,
       ),
-      SizedBox(height: 30,),
+      const SizedBox(height: 30,),
       OutlinedButton.icon(
         onPressed: () {
           setState(() {
@@ -96,7 +94,7 @@ class _HomePageState extends State<HomePage> {
         icon: const Icon(Icons.replay),
         label: const Text("Restart the game"),
       ),
-      SizedBox(height: 30,)
+      const SizedBox(height: 30,)
     ];
   }
 
@@ -126,8 +124,8 @@ class _HomePageState extends State<HomePage> {
                                   ? 'O'
                                   : '',
                           style: Player.playerX.contains(index)
-                              ? TextStyle(color: Colors.red, fontSize: 50)
-                              : TextStyle(color: Colors.blue, fontSize: 50)),
+                              ? const TextStyle(color: Colors.red, fontSize: 50)
+                              : const TextStyle(color: Colors.blue, fontSize: 50)),
                     ),
                   ),
                 )),
@@ -154,12 +152,12 @@ class _HomePageState extends State<HomePage> {
       activePlaer = activePlaer == 'X' ? 'O' : 'X';
       turn++;
 
-      String winerPlayer = game.checkWinneer();
-      if (winerPlayer != '') {
+      String winnerPlayer = game.checkWinneer();
+      if (winnerPlayer != '') {
         gameOver = true;
-        result = '$winerPlayer is the winner';
+        result = '$winnerPlayer is the winner';
       } else if (!gameOver && turn == 9) {
-        result = "Drow !!";
+        result = "Draw !!";
       }
     });
   }
